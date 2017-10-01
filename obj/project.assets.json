@@ -670,11 +670,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrator\\Desktop\\Donghoon\\Donghoon.csproj",
+      "projectUniqueName": "C:\\Users\\Administrator\\Documents\\GitHub\\MyHashTable\\Donghoon.csproj",
       "projectName": "Donghoon",
-      "projectPath": "C:\\Users\\Administrator\\Desktop\\Donghoon\\Donghoon.csproj",
+      "projectPath": "C:\\Users\\Administrator\\Documents\\GitHub\\MyHashTable\\Donghoon.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Administrator\\Desktop\\Donghoon\\obj\\",
+      "outputPath": "C:\\Users\\Administrator\\Documents\\GitHub\\MyHashTable\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

@@ -56,6 +56,39 @@ namespace Donghoon
             }
         }
 
+        public string Search(string key)
+        {
+            int index = HashFunction(key);
+            LinkedList Find = bucket[index];
+
+            while(Find != null)
+            {
+                if(Find.Key == key)
+                {
+                    Console.WriteLine($"Key : {key}, Value : {Find.Value}");
+                    return Find.Value;
+                }
+                Find = Find.Next;
+            }
+
+            index = CollisionHashFunction(key);
+            Find = bucket[index];
+
+            while(Find != null)
+            {
+                if(Find.Key == key)
+                {
+                    Console.WriteLine($"Key : {key}, Value : {Find.Value}");
+                    return Find.Value;
+                }
+                Find = Find.Next;
+            }
+
+            Console.WriteLine("Cannot find the key");
+            return null;
+
+        }
+
         public class LinkedList
         {
             public string Key { get; set; }
@@ -110,14 +143,15 @@ namespace Donghoon
             ht.Add("kang1", "dong");
             ht.Add("kang1", "dong");
             ht.Add("kang1", "dong");
-            ht.Add("kang1", "dong");
-            ht.Add("kang8", "dong");
-            ht.Add("kang8", "dong");
-            ht.Add("kang8", "dong");
-            ht.Add("kang8", "dong");
-            ht.Add("kang8", "dong");
-            ht.Add("kang8", "dong");
+            ht.Add("gank1", "hoon");
+            ht.Add("kang7", "dong");
+            ht.Add("kang8", "hoon");
+            ht.Add("kang9", "dong");
+            ht.Add("kang10", "dong");
+            ht.Add("kang11", "dong");
+            ht.Add("kang12", "dong");
             
+            ht.Search("gank2");
             
 
             
