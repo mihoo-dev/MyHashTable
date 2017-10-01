@@ -9,17 +9,8 @@ namespace Donghoon
 
         public HashTable( int capacity)
         {
-            if(capacity >= 100 && capacity <= 500)
-            {
-                this.MAX_SIZE = capacity;
-                this.bucket = new LinkedList[MAX_SIZE];
-            }
-            else
-            {
-                Console.WriteLine("Capacity can only be between 100 and 500");
-                return;
-            }
-            
+             this.MAX_SIZE = capacity;
+             this.bucket = new LinkedList[MAX_SIZE];
         }
 
         public void Add(string key, string value)
@@ -180,7 +171,6 @@ namespace Donghoon
 
         public int HashFunction(string key)
         {
-            //Console.WriteLine(key.GetHashCode2() % MAX_SIZE);
             return key.GetHashCode2() % MAX_SIZE;
         }
 
@@ -206,7 +196,18 @@ namespace Donghoon
     {
         static void Main(string[] args)
         {
-            HashTable ht = new HashTable(150);
+            int capacity = 165;
+            HashTable ht = null;
+            if(capacity >= 100 && capacity <= 500)
+            {
+                 ht = new HashTable(capacity);
+            }
+            else
+            {   
+                Console.WriteLine("Capacity can only be between 100 and 500.");
+                Console.WriteLine("Try Again..");
+                 return;
+            }
             ht.Add("kang1", "dong1");
             ht.Add("angk1", "dong2");
             ht.Add("nagk1", "dong3");
@@ -229,7 +230,7 @@ namespace Donghoon
             ht.Delete("nagk1", "dong3");
             ht.Search("nagk1");
             ht.Delete("angk1", "dong1");
-           
+            
         }
     }
 }
