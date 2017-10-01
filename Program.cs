@@ -9,8 +9,17 @@ namespace Donghoon
 
         public HashTable( int capacity)
         {
-            this.MAX_SIZE = capacity;
-            this.bucket = new LinkedList[MAX_SIZE];
+            if(capacity >= 100 && capacity <= 500)
+            {
+                this.MAX_SIZE = capacity;
+                this.bucket = new LinkedList[MAX_SIZE];
+            }
+            else
+            {
+                Console.WriteLine("Capacity can only be between 100 and 500");
+                return;
+            }
+            
         }
 
         public void Add(string key, string value)
@@ -89,6 +98,66 @@ namespace Donghoon
 
         }
 
+        public string Delete(string key, string value)
+        {
+            int index = HashFunction(key);
+            LinkedList Find = bucket[index];
+            LinkedList temp = bucket[index];
+
+            while(Find != null)
+            {
+                if(Find.Key == key && Find.Value == value)
+                {
+                    
+                    Console.WriteLine($"Key : {key}, Value : {Find.Value} deleted");
+                    if(Find == bucket[index])
+                    {
+                        bucket[index] = Find.Next;
+                        //Find.Next = null;
+                    }
+                    else if(Find.Next != null)
+                        temp.Next = Find.Next;
+                    
+                    else
+                    {
+                        temp.Next = null;
+                    }
+                    return Find.Value;
+                }
+                temp = Find;
+                Find = Find.Next;
+            }
+
+            index = CollisionHashFunction(key);
+            Find = bucket[index];
+            temp = bucket[index];
+
+            while(Find != null)
+            {
+                if(Find.Key == key && Find.Value == value)
+                {
+                    Console.WriteLine($"Key : {key}, Value : {Find.Value} deleted");
+
+                    if(Find == bucket[index])
+                    {
+                        bucket[index] = Find.Next;
+                        //Find.Next = null;
+                    }
+                    else if(Find.Next != null)
+                        temp.Next = Find.Next;
+                    else
+                        temp.Next = null;
+
+                    return Find.Value;
+                }
+                temp = Find;
+                Find = Find.Next;
+            }
+
+            Console.WriteLine("Cannot find the key");
+            return null;
+        }
+
         public class LinkedList
         {
             public string Key { get; set; }
@@ -137,12 +206,11 @@ namespace Donghoon
     {
         static void Main(string[] args)
         {
-            HashTable ht = new HashTable(100);
-            ht.Add("kang1", "dong");
-            ht.Add("kang1", "dong");
-            ht.Add("kang1", "dong");
-            ht.Add("kang1", "dong");
-            ht.Add("kang1", "dong");
+            HashTable ht = new HashTable(150);
+            ht.Add("kang1", "dong1");
+            ht.Add("angk1", "dong2");
+            ht.Add("nagk1", "dong3");
+            ht.Add("gnka1", "dong4");
             ht.Add("gank1", "hoon");
             ht.Add("kang7", "dong");
             ht.Add("kang8", "hoon");
@@ -151,10 +219,16 @@ namespace Donghoon
             ht.Add("kang11", "dong");
             ht.Add("kang12", "dong");
             
-            ht.Search("gank2");
-            
-
-            
+            ht.Search("kang1");
+            ht.Delete("kang1", "dong1");
+            ht.Search("kang1");
+            ht.Search("gank1");
+            ht.Delete("gank1", "hoon");
+            ht.Search("gank1");
+            ht.Search("nagk1");
+            ht.Delete("nagk1", "dong3");
+            ht.Search("nagk1");
+            ht.Delete("angk1", "dong1");
            
         }
     }
