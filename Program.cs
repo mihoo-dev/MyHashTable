@@ -26,7 +26,7 @@ namespace Donghoon
                     bucket[index].head = bucket[index];
                     bucket[index].tail = bucket[index];
                     bucket[index].count++;
-                    Console.WriteLine($"(key : {key}) is Added, Bucket[{index}]");
+                    Console.WriteLine($"({key}, {value}) is Added (Bucket[{index}], count : {bucket[index].count})");
                     break;
                 }
                 else
@@ -35,14 +35,14 @@ namespace Donghoon
                     {
                         if(check == false)
                         {
-                            Console.WriteLine($"(key : {key}) is searching for another bucket[count : {bucket[index].count}]");
+                            Console.WriteLine($"Bucket[{index}] has no space left...Searching for another bucket");
                             index = CollisionHashFunction(key);
                             check = true;
                             continue;
                         }
                         else
                         {
-                            Console.WriteLine("cannot be added");
+                            Console.WriteLine("You have already tried twice...Cannot be added");
                             break;
                         }
                     }
@@ -50,7 +50,7 @@ namespace Donghoon
                     bucket[index].tail.Next = newNode;
                     bucket[index].tail = newNode;
                     bucket[index].count++;
-                    Console.WriteLine($"(key : {key}) is Added, Bucket[{index}]");
+                    Console.WriteLine($"({key}, {value}) is Added (Bucket[{index}], count : {bucket[index].count})");
                     break;
                 }
             }
@@ -65,7 +65,7 @@ namespace Donghoon
             {
                 if(Find.Key == key)
                 {
-                    Console.WriteLine($"Key : {key}, Value : {Find.Value}");
+                    Console.WriteLine($"Found (Key : {key}, Value : {Find.Value}) in (Bucket[{index}])");
                     return Find.Value;
                 }
                 Find = Find.Next;
@@ -78,13 +78,13 @@ namespace Donghoon
             {
                 if(Find.Key == key)
                 {
-                    Console.WriteLine($"Key : {key}, Value : {Find.Value}");
+                    Console.WriteLine($"Found (Key : {key}, Value : {Find.Value}) in (Bucket[{index}])");
                     return Find.Value;
                 }
                 Find = Find.Next;
             }
 
-            Console.WriteLine("Cannot find the key");
+            Console.WriteLine($"Cannot find the key...{key}");
             return null;
 
         }
@@ -99,20 +99,25 @@ namespace Donghoon
             {
                 if(Find.Key == key && Find.Value == value)
                 {
-                    
-                    Console.WriteLine($"Key : {key}, Value : {Find.Value} deleted");
+                    bucket[index].count--;
+                    Console.WriteLine($"Delete (Key : {key}, Value : {Find.Value}) from (Bucket[{index}], count : {bucket[index].count})");
                     if(Find == bucket[index])
                     {
-                        bucket[index] = Find.Next;
-                        //Find.Next = null;
+                        bucket[index].Next.tail= bucket[index].tail;
+                        bucket[index].Next.count = bucket[index].count;
+                        bucket[index] = bucket[index].Next;
+                        Find.Next = null;
                     }
                     else if(Find.Next != null)
+                    {
                         temp.Next = Find.Next;
-                    
+                    } 
                     else
                     {
                         temp.Next = null;
+                        bucket[index].tail = temp;
                     }
+                    
                     return Find.Value;
                 }
                 temp = Find;
@@ -127,18 +132,24 @@ namespace Donghoon
             {
                 if(Find.Key == key && Find.Value == value)
                 {
-                    Console.WriteLine($"Key : {key}, Value : {Find.Value} deleted");
+                    bucket[index].count--;
+                    Console.WriteLine($"Delete (Key : {key}, Value : {Find.Value}) from (Bucket[{index}], count : {bucket[index].count})");
 
                     if(Find == bucket[index])
                     {
-                        bucket[index] = Find.Next;
-                        //Find.Next = null;
+                        bucket[index].Next.tail= bucket[index].tail;
+                        bucket[index].Next.count = bucket[index].count;
+                        bucket[index] = bucket[index].Next;
+                        Find.Next = null;
                     }
                     else if(Find.Next != null)
                         temp.Next = Find.Next;
                     else
+                    {
                         temp.Next = null;
-
+                        bucket[index].tail = temp;
+                    }
+                    
                     return Find.Value;
                 }
                 temp = Find;
@@ -209,10 +220,11 @@ namespace Donghoon
                  return;
             }
             ht.Add("kang1", "dong1");
-            ht.Add("angk1", "dong2");
-            ht.Add("nagk1", "dong3");
-            ht.Add("gnka1", "dong4");
-            ht.Add("gank1", "hoon");
+            ht.Add("akng1", "dong2");
+            ht.Add("angk1", "dong3");
+            ht.Add("agnk1", "dong4");
+            ht.Add("gnka1", "hoon");
+            ht.Add("knga1", "dong5");
             ht.Add("kang7", "dong");
             ht.Add("kang8", "hoon");
             ht.Add("kang9", "dong");
@@ -220,16 +232,18 @@ namespace Donghoon
             ht.Add("kang11", "dong");
             ht.Add("kang12", "dong");
             
+            
             ht.Search("kang1");
             ht.Delete("kang1", "dong1");
             ht.Search("kang1");
-            ht.Search("gank1");
-            ht.Delete("gank1", "hoon");
-            ht.Search("gank1");
-            ht.Search("nagk1");
-            ht.Delete("nagk1", "dong3");
-            ht.Search("nagk1");
-            ht.Delete("angk1", "dong1");
+
+            ht.Add("kang1", "dfsdf");
+            ht.Add("gkan1", "dfsdf");
+
+            ht.Search("kang1");
+            ht.Search("gkan1");
+            
+            
             
         }
     }
