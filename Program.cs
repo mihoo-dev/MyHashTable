@@ -9,8 +9,12 @@ namespace Donghoon
             get { return MAX_SIZE; }
             private set {
                 if(value < 100 || value > 500) {
-                    Console.WriteLine("Capacity can only be between 100 and 500.");
-                    Console.WriteLine("Try Again...");
+                    string input = "Capacity can only be between 100 and 500.;TryAgain...;";
+                    string[] ouput = input.Split(";");
+                    foreach(var str in ouput){
+                        Console.WriteLine($"{str}");
+                    }
+                    
                     Environment.Exit(0); //프로그램 종료
                 } else {
                     MAX_SIZE = value;
@@ -190,8 +194,8 @@ namespace Donghoon
     public class LinkedList
     {
         //Properties는 대문자로 시작, 외부에 노출
-        public string Key { get; set; }
-        public string Value { get; set; }
+        public string Key { get; set; } = string.Empty;
+        public string Value { get; set; } = string.Empty;
         public LinkedList Next { get; set; }
         
         public LinkedList tail;
