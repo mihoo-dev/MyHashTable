@@ -664,23 +664,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Administrator\\.nuget\\packages\\": {},
+    "C:\\Users\\Makarl\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Administrator\\Documents\\GitHub\\MyHashTable\\Donghoon.csproj",
-      "projectName": "Donghoon",
-      "projectPath": "C:\\Users\\Administrator\\Documents\\GitHub\\MyHashTable\\Donghoon.csproj",
-      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Administrator\\Documents\\GitHub\\MyHashTable\\obj\\",
+      "projectUniqueName": "C:\\Users\\Makarl\\Desktop\\과제\\3학년 2학기\\모바일증강현실\\Hash Table\\Hash Table.csproj",
+      "projectName": "Hash Table",
+      "projectPath": "C:\\Users\\Makarl\\Desktop\\과제\\3학년 2학기\\모바일증강현실\\Hash Table\\Hash Table.csproj",
+      "packagesPath": "C:\\Users\\Makarl\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Makarl\\Desktop\\과제\\3학년 2학기\\모바일증강현실\\Hash Table\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Makarl\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"

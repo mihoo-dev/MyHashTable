@@ -1,29 +1,42 @@
-﻿using System;
+﻿using System; //클래스들의 묶음, 시스템이라는 네임스페이스
 
 namespace Donghoon
 {
     public class HashTable
     {
         private int MAX_SIZE;
+        public int MS{
+            get { return MAX_SIZE; }
+            private set {
+                if(value < 100 || value > 500) {
+                    Console.WriteLine("Capacity can only be between 100 and 500.");
+                    Console.WriteLine("Try Again...");
+                    Environment.Exit(0); //프로그램 종료
+                } else {
+                    MAX_SIZE = value;
+                    
+                }
+
+            }
+        }
         private LinkedList[] bucket;
 
-        public HashTable( int capacity)
+        public HashTable( int capacity) 
         {
-             this.MAX_SIZE = capacity;
+             MS = capacity;
              this.bucket = new LinkedList[MAX_SIZE];
         }
 
         public void Add(string key, string value)
         {
-            int index = HashFunction(key);
-            bool check = false;
+            int index = GetHashFunction(key);
+            bool IsChecked = false;
             
             while(true)
             {
                 if(bucket[index] == null)
                 {
                     bucket[index] = new LinkedList(key, value);
-                    bucket[index].head = bucket[index];
                     bucket[index].tail = bucket[index];
                     bucket[index].count++;
                     Console.WriteLine($"({key}, {value}) is Added (Bucket[{index}], count : {bucket[index].count})");
@@ -33,11 +46,11 @@ namespace Donghoon
                 {
                     if(bucket[index].count >= 5)
                     {
-                        if(check == false)
+                        if(IsChecked == false)
                         {
                             Console.WriteLine($"Bucket[{index}] has no space left...Searching for another bucket");
-                            index = CollisionHashFunction(key);
-                            check = true;
+                            index = GetCollisionHashFunction(key);
+                            IsChecked = true;
                             continue;
                         }
                         else
@@ -58,7 +71,7 @@ namespace Donghoon
 
         public string Search(string key)
         {
-            int index = HashFunction(key);
+            int index = GetHashFunction(key);
             LinkedList Find = bucket[index];
 
             while(Find != null)
@@ -71,7 +84,7 @@ namespace Donghoon
                 Find = Find.Next;
             }
 
-            index = CollisionHashFunction(key);
+            index = GetCollisionHashFunction(key);
             Find = bucket[index];
 
             while(Find != null)
@@ -91,7 +104,7 @@ namespace Donghoon
 
         public string Delete(string key, string value)
         {
-            int index = HashFunction(key);
+            int index = GetHashFunction(key);
             LinkedList Find = bucket[index];
             LinkedList temp = bucket[index];
 
@@ -124,7 +137,7 @@ namespace Donghoon
                 Find = Find.Next;
             }
 
-            index = CollisionHashFunction(key);
+            index = GetCollisionHashFunction(key);
             Find = bucket[index];
             temp = bucket[index];
 
@@ -157,40 +170,42 @@ namespace Donghoon
             }
 
             Console.WriteLine("Cannot find the key");
+            
             return null;
         }
 
-        public class LinkedList
-        {
-            public string Key { get; set; }
-            public string Value { get; set; }
-            public LinkedList Next { get; set; }
-            public LinkedList head;
-            public LinkedList tail;
-            public int count;
+        
 
-            public LinkedList(string key, string value)
-            {
-                this.Key = key;
-                this.Value = value;
-                this.Next = null;  
-                this.head = null;
-                this.tail = null; 
-                this.count = 0;
-            }
-        }
-
-        public int HashFunction(string key)
+        public int GetHashFunction(string key)
         {
             return key.GetHashCode2() % MAX_SIZE;
         }
 
-        public int CollisionHashFunction(string key)
+        public int GetCollisionHashFunction(string key)
         {
             return (key.GetHashCode2() >> 6) % MAX_SIZE;
         }
     }
 
+    public class LinkedList
+    {
+        //Properties는 대문자로 시작, 외부에 노출
+        public string Key { get; set; }
+        public string Value { get; set; }
+        public LinkedList Next { get; set; }
+        
+        public LinkedList tail;
+        public int count;
+
+        public LinkedList(string key, string value)
+        {
+            this.Key = key;
+            this.Value = value;
+            this.Next = null;  
+            this.tail = null; 
+            this.count = 0;
+        }
+    }
     public static class HashCode2ExtensionMethods
     {
         public static int GetHashCode2(this string input)
@@ -209,16 +224,8 @@ namespace Donghoon
         {
             int capacity = 165;
             HashTable ht = null;
-            if(capacity >= 100 && capacity <= 500)
-            {
-                 ht = new HashTable(capacity);
-            }
-            else
-            {   
-                Console.WriteLine("Capacity can only be between 100 and 500.");
-                Console.WriteLine("Try Again..");
-                 return;
-            }
+            ht = new HashTable(capacity);
+            
             ht.Add("kang1", "dong1");
             ht.Add("akng1", "dong2");
             ht.Add("angk1", "dong3");
@@ -242,9 +249,6 @@ namespace Donghoon
 
             ht.Search("kang1");
             ht.Search("gkan1");
-            
-            
-            
         }
     }
 }
